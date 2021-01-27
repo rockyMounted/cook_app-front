@@ -10,7 +10,7 @@ const RecipeItem = (props) => {
         {props.title}
       </h2>
         <div className="recipe-item__img-wrapper">
-          <img className="recipe-item__img" src='https://static.1000.menu/img/content/33992/sup-lapshichnyi-s-kuricei_1554575213_1_max.jpg' alt=""/>
+          <img className="recipe-item__img" src={props.img} alt=""/>
         </div>
         <div className="recipe-item__info">
           <div className="recipe-item__details">

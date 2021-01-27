@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useState } from 'react';
 // import RecipeModal from '../recipe-modal/recipe-modal'
+import cookAppReques from '../../api/cook-app'
 import './create-recipe-form.scss'
 import InputIngredients from '../input-ingredients/input-ingredients'
 
@@ -10,14 +10,15 @@ class CreateRecipeForm extends React.Component{
     this.state = {
       recipes: [],
       errors: {},
-      ingredients: []
+      ingredients: [],
+      loading: false,
+      message: null
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onIngredientsChange = this.onIngredientsChange.bind(this);
   }
-
 
   onIngredientsChange(ingredients) {
     const ingr = this.state.ingredients
@@ -55,7 +56,7 @@ class CreateRecipeForm extends React.Component{
       recipe["description"] = this.state.recipes.description;
       recipe["img"] = this.state.recipes.img;
       recipe["difficulty"] = this.state.recipes.difficulty;
-      recipe["ingredients"] = this.state.ingredients
+      recipe["ingredients"] = [{'name': "Мука", 'qty': "200 г"}, {'name': "Молоко", 'qty': "1 стакан"}]
       this.setState({ recipes:[recipe] })
 
       // this.setState({recipe:recipe});
@@ -96,6 +97,27 @@ class CreateRecipeForm extends React.Component{
 
     return isValid;
   }
+
+  // addRecipe(title,calories,time,description,img,ingredients,difficulty){
+  //   this.setState({ loading: true });
+  //   cookAppReques
+  //     .post('/recipes', {
+  //       title,
+  //       calories,
+  //       time,
+  //       description,
+  //       img,
+  //       ingredients,
+  //       difficulty
+  //     })
+  //     .then(response => {
+  //       if (response.data.status === 'OK') {
+  //         this.setState({ recipes: [response.data.data], loading: false })
+  //       } else {
+  //         this.setState({ loading: false, message: response.data.message })
+  //       }
+  //     })
+  // }
 
   render() {
     return (
