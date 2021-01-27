@@ -1,0 +1,129 @@
+.create-recipe{
+  &__container{
+    background-color: var(--recipe-item_bg);
+    padding: 10px 30px;
+    border-radius: 1.5rem;
+    color: var(--brown-color);
+    font-family: var(--recipe-base-font);
+    box-shadow: 0px 0px 10px 1px rgba(21, 20, 19, 0.2);
+  }
+  &__list{
+    list-style-type: none;
+
+  }
+  &__item{
+    width: 60%;
+    justify-content: space-between;
+    margin-top: 20px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    &-description{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    &-ingredients{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  &__button{
+    margin: 50px 0px 30px 85%;
+    width: 120px;
+    padding: 14px 5px;
+    font-size: 14px;
+    font-family: var(--recipe-base-font);
+    right: 0;
+    background-color: var(--aqua-color);
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.input{
+  border: 2px solid var(--aqua-color);
+  border-radius: 5px;
+  width: 20%;
+  font-size: 14px;
+  font-family: var(--recipe-base-font);
+  &-number{
+    padding: 4px 4px;
+  }
+  &-title{
+    padding: 6px 5px;
+    width: 50%;
+  }
+  &-description{
+    padding: 6px 5px;
+    width: 100%;
+    min-height: 100px;
+    margin-top: 10px;
+  }
+  &-difficulty{
+    padding: 4px 2px;
+  }
+  &-ingredient{
+    padding: 4px 4px;
+    margin-left: 10px;
+  }
+  &-file{
+    width: 120px;
+    opacity: 0;
+    padding: 12px;
+    z-index: 99;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.ingredients{
+  &-list{
+    list-style-type: none;
+  }
+  &-item{
+    margin-top: 10px;
+
+  }
+}
+
+.label-qty{
+  margin-left: 15px;
+}
+
+.photo-button{
+  width: 120px;
+  padding: 8px 5px;
+  position: absolute;
+  right: 0;
+  background-color: #539fa982;
+  border-radius: 5px;
+  border: 2px solid var(--aqua-color);
+  font-family: var(--recipe-base-font);
+  cursor: pointer;
+}
+
+.recipe-label{
+  &:after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: var(--brown-color);
+  }
+}
+
+.text-danger{
+  position: absolute;
+  right: -210px;
+  width: 200px;
+  font-size: 12px;
+  background-color: rgb(231, 133, 133);
+  // border: 1px solid red;
+  // padding: 5px;
+  border-radius: 10px
+}
+
+
+

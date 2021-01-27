@@ -1,0 +1,13 @@
+.save-recipe{
+  &__modal{
+    background-color: var(--aqua-color);
+    width: 60%;
+    padding: 40px 20px;
+    border-radius: 1.5rem;
+  }
+  &__text{
+    font-size: 24px;
+    text-align: center;
+    font-family: var(--recipe-base-font);
+  }
+}

@@ -1,0 +1,75 @@
+
+.header{
+  height: 90px;
+  background-color: white;
+  box-shadow: 0px 0px 10px 1px rgba(21, 20, 19, 0.2);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  &-wrapper{
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-logo__box{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  &-logo path{
+    width: 80px;
+    fill: var(--brown-color)
+  }
+  &-title{
+    font-family: var(--recipe-title_font);
+    color: var(--brown-color);
+    margin-left: 20px;
+    font-weight: lighter;
+    font-size: 1.7em;
+    // &:hover{
+    //   color: var(--aqua-color);
+    // }
+  }
+  &-title + .header-logo path{   // не работает
+    &:hover{
+      color: var(--aqua-color);
+    }
+  }
+  &-nav{
+    display: flex;
+    align-items: center;
+    &__item{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      margin-left: 15px;
+
+    }
+    &__logo path{
+      width: 50px;
+      fill: #328e99;
+    }
+
+    &__title{
+      font-size: 15px;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      color: #328e99;
+    }
+  }
+}
+
+
+.fix{
+  margin-top: -10px;
+}
+
+@media (max-width: 1024px){
+  .header-wrapper{
+    width: 98%;
+  }
+}

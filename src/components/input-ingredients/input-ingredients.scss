@@ -1,0 +1,16 @@
+.ingredients{
+  &-list{
+    list-style-type: none;
+  }
+  &-item{
+    margin-top: 10px;
+
+  }
+}
+
+.input{
+  &-ingredient{
+    padding: 4px 4px;
+    margin-left: 10px;
+  }
+}
