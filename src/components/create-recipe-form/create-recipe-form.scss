@@ -29,18 +29,6 @@
       align-items: flex-start;
     }
   }
-  &__button{
-    margin: 50px 0px 30px 85%;
-    width: 120px;
-    padding: 14px 5px;
-    font-size: 14px;
-    font-family: var(--recipe-base-font);
-    right: 0;
-    background-color: var(--aqua-color);
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-  }
 }
 
 .input{
@@ -83,6 +71,9 @@
   &-list{
     list-style-type: none;
   }
+  &-list:last-child{
+    margin-bottom: 20px;
+  }
   &-item{
     margin-top: 10px;
 
@@ -119,11 +110,19 @@
   right: -210px;
   width: 200px;
   font-size: 12px;
-  background-color: rgb(231, 133, 133);
-  // border: 1px solid red;
-  // padding: 5px;
-  border-radius: 10px
+  color: red;
 }
 
+.add-field{
+  width: 100px;
+  padding: 2px 2px;
+  position: absolute;
+  right: 0;
+  background-color: #539fa982;
+  border-radius: 5px;
+  border: 2px solid var(--aqua-color);
+  font-family: var(--recipe-base-font);
+  cursor: pointer;
+}
 
 

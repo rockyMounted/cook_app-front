@@ -54,6 +54,12 @@
       width: 50px;
       fill: #328e99;
     }
+    &__button{
+      background-color: transparent;
+      border-width: 0;
+      border: none;
+      outline: none;
+    }
 
     &__title{
       font-size: 15px;

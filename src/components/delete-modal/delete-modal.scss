@@ -1,4 +1,4 @@
-.save-recipe{
+.delete-recipe{
   &__container{
     height: 100vh;
     display: flex;
@@ -7,7 +7,7 @@
     margin: -120px auto -30px auto
   }
   &__modal{
-    background-color: var(--aqua-color);
+    background-color: var(--brown-color);
     width: 60%;
     padding: 40px 20px;
     border-radius: 1.5rem;
@@ -20,5 +20,4 @@
     font-family: var(--recipe-base-font);
   }
 }
-
 

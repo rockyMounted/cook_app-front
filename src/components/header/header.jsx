@@ -35,14 +35,12 @@ class Header extends React.Component{
                 <span className='header-nav__title'>Создать рецепт</span>
               </div>
             </Link>
-            <Link to='/my-recipes' >
-              <div className="header-nav__item">
-                <LoveMealIcon
-                className='header-nav__logo'
-                />
-                <span className='header-nav__title fix'>Любимые рецепты</span>
-              </div>
-            </Link>
+            <button className="header-nav__item header-nav__button" onMouseDown={this.props.handleMouseDown} >
+              <LoveMealIcon
+              className='header-nav__logo'
+              />
+              <span className='header-nav__title fix'>Любимые рецепты</span>
+            </button>
           </div>
         </div>
       </header>

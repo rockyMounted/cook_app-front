@@ -1,5 +1,4 @@
 import React from 'react'
-
 import './input-ingredients.scss'
 
 class InputIngredients extends React.Component{
@@ -10,9 +9,7 @@ class InputIngredients extends React.Component{
     };
 
     this.handleChange = this.handleChange.bind(this);
-
   }
-
 
   handleChange(event) {
     let ingredients = this.state.ingredients;
@@ -25,7 +22,6 @@ class InputIngredients extends React.Component{
 
     this.props.onIngredientsChange(ingredients)
   }
-
 
   render() {
     console.log(this.state)

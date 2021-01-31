@@ -3,6 +3,10 @@ import React from 'react';
 import cookAppReques from '../../api/cook-app'
 import './create-recipe-form.scss'
 import InputIngredients from '../input-ingredients/input-ingredients'
+import ButtonSubmit from '../button-submit/button-submit'
+import ImgUploader from '../img-uploader/img-uploader'
+
+import { withRouter} from "react-router-dom";
 
 class CreateRecipeForm extends React.Component{
   constructor() {
@@ -12,7 +16,9 @@ class CreateRecipeForm extends React.Component{
       errors: {},
       ingredients: [],
       loading: false,
-      message: null
+      message: null,
+      fileInfo: null,
+      inputIngredients:[]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,25 +26,37 @@ class CreateRecipeForm extends React.Component{
     this.onIngredientsChange = this.onIngredientsChange.bind(this);
   }
 
-  onIngredientsChange(ingredients) {
-    const ingr = this.state.ingredients
-    ingr.push(ingredients)
+  addInputField = (e) => {
+    const inputIngredients = this.state.inputIngredients;
+    const size = inputIngredients.length + 1;
+    inputIngredients.push(size);
+    this.setState({
+      inputIngredients
+    });
+    e.preventDefault();
+  }
 
-    // if (ingr.some(e => e.id === )) {
-    //   console.log('hj')
-    // }
+  onChangeFile = (fileInfo) => {
+    this.setState({ fileInfo });
+  };
 
-
-    console.log('массив', ingr)
-    this.setState(ingr)
-    console.log('state', this.state.ingredients )
-    // console.log('ing', ingredients)  //
+  onIngredientsChange(ingredient) {
+    const ingredients = [...this.state.ingredients];
+    const ingr = ingredients.find((value, index) => {
+      return value.id === ingredient.id
+    })
+    if (!ingr) {
+      ingredients.push(ingredient)
+    } else {
+      ingr.name = ingredient.name;
+      ingr.qty = ingredient.qty
+    }
+    this.setState({ingredients})
   }
 
   handleChange(event) {
     let recipes = this.state.recipes;
     recipes[event.target.name] = event.target.value;
-
     this.setState({
       recipes
     });
@@ -46,22 +64,30 @@ class CreateRecipeForm extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault();
-
     if (this.validate()) {
-
       let recipe = {};
       recipe["title"] = this.state.recipes.title;
       recipe["calories"] = this.state.recipes.calories;
       recipe["time"] = this.state.recipes.time;
       recipe["description"] = this.state.recipes.description;
-      recipe["img"] = this.state.recipes.img;
+      recipe["img"] = this.state.fileInfo.img;
       recipe["difficulty"] = this.state.recipes.difficulty;
-      recipe["ingredients"] = [{'name': "Мука", 'qty': "200 г"}, {'name': "Молоко", 'qty': "1 стакан"}]
-      this.setState({ recipes:[recipe] })
+      recipe["ingredients"] = this.state.ingredients
+      console.log('recipe', recipe)
+      console.log('ingredients', this.state.ingredients)
+      console.log('img', this.state.fileInfo.img)
+      this.setState({ recipes: [recipe] })
 
-      // this.setState({recipe:recipe});
+      cookAppReques.post('/recipes', recipe)
+        .then(res => {
+          if (res.data.status === 'OK') {
+            console.log(res.data.data)
+          } else {
+            console.log(console.log(res.data))
+          }
+        })
 
-      alert('Рецепт сохранён');
+      this.props.history.push(`/add-modal`);
     }
   }
 
@@ -90,34 +116,21 @@ class CreateRecipeForm extends React.Component{
       isValid = false;
       errors["difficulty"] = "Пожалуйста, укажите сложность приготовления";
     }
+    if (this.state.ingredients.length === 0) {
+      isValid = false;
+      errors["ingredients"] = "Пожалуйста, добавьте минимум один ингредиент";
+    }
+    console.log(this.state.fileInfo)
+    if (this.state.fileInfo == null) {
+      isValid = false;
+      errors["img"] = "Пожалуйста, добавьте фотографию";
+    }
 
     this.setState({
       errors: errors
     });
-
     return isValid;
   }
-
-  // addRecipe(title,calories,time,description,img,ingredients,difficulty){
-  //   this.setState({ loading: true });
-  //   cookAppReques
-  //     .post('/recipes', {
-  //       title,
-  //       calories,
-  //       time,
-  //       description,
-  //       img,
-  //       ingredients,
-  //       difficulty
-  //     })
-  //     .then(response => {
-  //       if (response.data.status === 'OK') {
-  //         this.setState({ recipes: [response.data.data], loading: false })
-  //       } else {
-  //         this.setState({ loading: false, message: response.data.message })
-  //       }
-  //     })
-  // }
 
   render() {
     return (
@@ -143,6 +156,7 @@ class CreateRecipeForm extends React.Component{
             <li className="create-recipe__item">
               <label  className="recipe-label" htmlFor="difficulty">Сложность приготовления:</label>
               <select className="input input-difficulty" name="difficulty" value={this.state.recipes.difficulty} onChange={this.handleChange}>
+                <option disabled selected></option>
                 <option value="сложно">сложно</option>
                 <option value="средняя">средняя</option>
                 <option value="легко">легко</option>
@@ -157,17 +171,26 @@ class CreateRecipeForm extends React.Component{
             <li className="create-recipe__item create-recipe__item-ingredients">
               <label className="recipe-label" htmlFor="ingredients">Ингредиенты:</label>
               <ul className="ingredients-list" >
-                <InputIngredients id='1' onIngredientsChange={ this.onIngredientsChange}/>
-                <InputIngredients id='2' onIngredientsChange={ this.onIngredientsChange}/>
+                <InputIngredients id='1' key="1" onIngredientsChange={this.onIngredientsChange} />
+                <div className="text-danger">{this.state.errors.ingredients}</div>
+                {this.state.inputIngredients.map(index => {
+                  return (
+                  <>
+                    <InputIngredients id={String(index += 1)} key={index} onIngredientsChange={this.onIngredientsChange} />
+
+                  </>
+                  )
+                })}
+                <button className="add-field" onClick={this.addInputField}> + ингредиент</button>
+
               </ul>
             </li>
             <li className="create-recipe__item">
-              <label className="recipe-label" htmlFor="img">Фотография блюда:</label>
-              <input className="input input-file" name="img" type="file" value={this.state.recipes.img} onChange={this.handleChange}/>
-              <button className="photo-button">Выбрать файл</button>
+              <ImgUploader onChange={this.onChangeFile} />
+              <div className="text-danger">{this.state.errors.img}</div>
             </li>
           </ul>
-          <button className="create-recipe__button" type="submit">Сохранить</button>
+          <ButtonSubmit />
         </form>
 
       </div>
@@ -175,83 +198,5 @@ class CreateRecipeForm extends React.Component{
   }
 }
 
-export default CreateRecipeForm
+export default withRouter(CreateRecipeForm)
 
-
-
-
-
-// class CreateRecipeForm extends React.Component {
-
-//   state = { title: '', description: '', time: '', difficulty: '', calories: '' };
-
-//   addNewRecipe = () => {
-//     const { addRecipe } = this.props;
-//     const { title, description, time, difficulty, calories } = this.state;
-
-//     addRecipe(title, description, time, difficulty, calories)
-//   };
-
-//   handleInput = event => {
-//     this.setState({ title: event.target.value })
-//   }
-//   render() {
-//     const { title } = this.state;
-//     console.log(this.addNewRecipe)
-//     return (
-//       <div className="create-recipe__container">
-//         <h2 className="recipe-title">Создать рецепт</h2>
-//         <form action="" onSubmit={this.addNewRecipe}>
-//           <ul className="create-recipe__list" >
-//             <li className="create-recipe__item ">
-//               <label className="recipe-label" htmlFor="title">Название рецепта:</label>
-//               <input className=" input input-title" name="title" type="text" value={title} onChange={this.handleInput}/>
-//             </li>
-//             {/* <li className="create-recipe__item ">
-//               <label className="recipe-label" htmlFor="time">Время приготовления (в минутах):</label>
-//               <input className="input input-number" name="time" type="number" value={time} onChange={e => setTime(e.target.value)}/>
-//             </li>
-//             <li className="create-recipe__item ">
-//               <label  className="recipe-label" htmlFor="calories">Колличество каллорий (на 100 гр):</label>
-//               <input className="input input-number" name="calories" type="number" value={calories}onChange={e => setCalories(e.target.value)}/>
-//             </li>
-//             <li className="create-recipe__item">
-//               <label  className="recipe-label" htmlFor="difficulty">Сложность приготовления:</label>
-//               <select className="input input-difficulty" name="difficulty" value={difficulty} onChange={e => setDifficulty(e.target.value)}>
-//                 <option value="сложно">сложно</option>
-//                 <option value="средняя">средняя</option>
-//                 <option value="легко">легко</option>
-//               </select>
-//             </li>
-//             <li className="create-recipe__item create-recipe__item-description">
-//               <label className="recipe-label" htmlFor="description">Процесс приготовления:</label>
-//               <textarea className="input input-description" name="description" type="text" value={description} onChange={e => setDescription(e.target.value)}/>
-//             </li>
-//             <li className="create-recipe__item create-recipe__item-ingredients">
-//               <label className="recipe-label" htmlFor="ingredients">Ингредиенты:</label>
-//               <ul className="ingredients-list">
-//                 <li className="ingredients-item">
-//                   <label htmlFor="name">Название:</label>
-//                   <input className="input input-ingredient" name="name" type="text" value={name} onChange={e => setName(e.target.value)}/>
-
-//                   <label className="label-qty" htmlFor="qty">Колличество:</label>
-//                   <input className="input input-ingredient" name="qty" type="text" value={qty} onChange={e => setQty(e.target.value)}/>
-//                 </li>
-//               </ul>
-//             </li>
-//             <li className="create-recipe__item">
-//               <label className="recipe-label" htmlFor="img">Фотография блюда:</label>
-//               <input className="input input-file" name="img" type="file" value={img} onChange={e => setImg(e.target.value)}/>
-//               <button className="photo-button">Выбрать файл</button>
-//             </li>*/}
-//           </ul>
-//           <button className="create-recipe__button" type="submit">Сохранить</button>
-//         </form>
-
-//         {/* <div>{this.state.title}</div> */}
-//       </div>
-//     )
-//   }
-// }
-
-// export default CreateRecipeForm

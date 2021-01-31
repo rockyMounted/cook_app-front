@@ -1,0 +1,139 @@
+.favorite-recipe{
+  &__title{
+    color: white;
+    font-family: var(--recipe-title_font);
+    font-weight: lighter;
+    font-size: 1.6em;
+    padding: 10px 20px
+  }
+  &__container{
+    padding: 10px 20px;
+    list-style-type: none;
+  }
+  &__item{
+    margin-bottom: 20px;
+    display: flex;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 10px;
+    &:hover{
+      background-color: var(--recipe-item_bg);
+    }
+  }
+  &__text{
+    color: white;
+    font-family: var(--recipe-base-font);
+    font-weight: lighter;
+    font-size: 1em;
+    margin: 40%;
+    width: 100px
+  }
+  &__img{
+    width: 100%;
+    &-wrapper{
+      width: 40%;
+      height: 100px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &__info{
+    margin-left: 15px;
+    margin-top: 5px;
+  }
+  &__subtitle{
+    color: var(--brown-color);
+    font-family: var(--recipe-base-font);
+    font-weight: lighter;
+    font-size: 1em;
+    margin-bottom: 5px;
+
+  }
+  &__details{
+    list-style-type: none;
+    color: var(--brown-color);
+    font-family: var(--recipe-base-font);
+    font-weight: lighter;
+    font-size: 0.8em;
+  }
+}
+
+
+
+
+#favorite-recipe__box {
+  width: 30vw;
+  height: 100vh;
+  background-color: var(--aqua-color);
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: transform .3s cubic-bezier(0, .52, 0, 1);
+  overflow: scroll;
+  z-index: 1000;
+}
+
+#favorite-recipe__box.hide{
+  transform: translate3d(30vw, 0, 0);
+}
+
+#flyoutBox.show{
+  transform: translate3d(0vw, 0, 0);
+  overflow: hidden;
+}
+
+#favorite-recipe__box h2 a:hover{
+  text-decoration: underline;
+}
+
+.close-box__button {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  position: relative;
+  z-index: 1;
+  margin: 20px auto;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+.close-box__button:before {
+  content: '+';
+  color: white;
+  position: absolute;
+  z-index: 2;
+  transform: rotate(45deg);
+  font-size: 50px;
+  line-height: 1;
+  top: -5px;
+  left: 6px;
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.2, 0.85);
+}
+.close-box__button:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: white;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.2, 0.85);
+  transform: scale(0.01);
+}
+.close-box__button:hover:after {
+  transform: scale(1);
+}
+.close-box__button:hover:before {
+  transform: scale(0.8) rotate(45deg);
+  color: var(--brown-color);
+}
+
+
