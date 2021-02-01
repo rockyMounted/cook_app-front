@@ -1,4 +1,5 @@
-# Cook App
+# Cook app (frontend)
+---
 
 1. git clone https://github.com/rockyMounted/cook_app-front.git
 2. cd cook-app
