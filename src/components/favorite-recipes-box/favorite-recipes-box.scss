@@ -41,7 +41,12 @@
   }
   &__info{
     margin-left: 15px;
+    justify-content: flex-start;
     margin-top: 5px;
+    display: flex;
+    width: 55%;
+    align-items: flex-start;
+    flex-direction: column;
   }
   &__subtitle{
     color: var(--brown-color);
@@ -58,6 +63,30 @@
     font-weight: lighter;
     font-size: 0.8em;
   }
+  &__button-delete{
+    align-self: flex-end;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    border-radius: 5px;
+    height: 20px;
+    z-index: 999;
+    background-image: url(./trash_delete_remove_icon_143675.svg);
+    background-repeat: no-repeat;
+    background-size: 100% ;
+    transition: opacity .3s linear,transform .3s linear;
+    &:hover{
+      box-shadow: 0px 0px 10px 1px rgba(21, 20, 19, 0.2);
+      background-color:  rgba(21, 20, 19, 0.2);
+    }
+    &:active{
+      opacity: 0.5;
+      transform: scale(0.9);
+    }
+  }
+
 }
 
 

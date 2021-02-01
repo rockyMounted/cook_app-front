@@ -54,7 +54,7 @@ class FavoriteRecipesBox extends React.Component {
                     <li>Время: {recipe.time} минут</li>
                     <li>Калорийность: {recipe.calories} ккал</li>
                   </ul>
-                  <button onClick={this.removeItem} data-id={recipe.id}>del</button>
+                  <button className="favorite-recipe__button-delete" onClick={this.removeItem} data-id={recipe.id}></button>
                 </div>
               </li>
             </Link>
