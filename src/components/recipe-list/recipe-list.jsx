@@ -37,7 +37,6 @@ class RecipesList extends React.Component {
     this.setState({loading: true})
     cookAppReques.get('/recipes').then(response => {
       const recipes = response.data.data;
-      console.log(recipes)
       this.setState({recipes, loading: false})
     })
   }

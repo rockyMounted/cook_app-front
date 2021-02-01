@@ -24,7 +24,6 @@ class InputIngredients extends React.Component{
   }
 
   render() {
-    console.log(this.state)
     return (
       <li className="ingredients-item">
         <label htmlFor="name">Название:</label>

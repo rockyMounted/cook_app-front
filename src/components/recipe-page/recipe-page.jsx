@@ -46,7 +46,6 @@ class Recipe extends React.Component{
     while ( i-- ) {
       archive.push(JSON.parse(localStorage.getItem( keys[i] )));
     }
-    console.log(archive)
     this.setState({ archive })
   }
 
@@ -69,12 +68,11 @@ class Recipe extends React.Component{
     }
   }
 
-  addFavorite(e) {
+  addFavorite() {
     const id = this.props.match.params.id;
     localStorage.setItem(id, JSON.stringify(this.state))
     let i = this.state.archive.some(el => el.id !== this.state.id)
     if (i) {
-      console.log(this.state.archive.some(el => el.id !== this.state.id))
       this.setState({msg: "В избранном" })
     }
     this.forceUpdate()

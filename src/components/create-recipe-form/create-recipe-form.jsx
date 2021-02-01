@@ -1,5 +1,4 @@
 import React from 'react';
-// import RecipeModal from '../recipe-modal/recipe-modal'
 import cookAppReques from '../../api/cook-app'
 import './create-recipe-form.scss'
 import InputIngredients from '../input-ingredients/input-ingredients'
@@ -73,19 +72,9 @@ class CreateRecipeForm extends React.Component{
       recipe["img"] = this.state.fileInfo.img;
       recipe["difficulty"] = this.state.recipes.difficulty;
       recipe["ingredients"] = this.state.ingredients
-      console.log('recipe', recipe)
-      console.log('ingredients', this.state.ingredients)
-      console.log('img', this.state.fileInfo.img)
       this.setState({ recipes: [recipe] })
 
       cookAppReques.post('/recipes', recipe)
-        .then(res => {
-          if (res.data.status === 'OK') {
-            console.log(res.data.data)
-          } else {
-            console.log(console.log(res.data))
-          }
-        })
 
       this.props.history.push(`/add-modal`);
     }
@@ -120,7 +109,6 @@ class CreateRecipeForm extends React.Component{
       isValid = false;
       errors["ingredients"] = "Пожалуйста, добавьте минимум один ингредиент";
     }
-    console.log(this.state.fileInfo)
     if (this.state.fileInfo == null) {
       isValid = false;
       errors["img"] = "Пожалуйста, добавьте фотографию";
@@ -156,7 +144,6 @@ class CreateRecipeForm extends React.Component{
             <li className="create-recipe__item">
               <label  className="recipe-label" htmlFor="difficulty">Сложность приготовления:</label>
               <select className="input input-difficulty" name="difficulty" value={this.state.recipes.difficulty} onChange={this.handleChange}>
-                <option disabled selected></option>
                 <option value="сложно">сложно</option>
                 <option value="средняя">средняя</option>
                 <option value="легко">легко</option>
